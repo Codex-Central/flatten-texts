@@ -10,7 +10,7 @@ Allows you to flatten an array of texts into a single array of texts.
 ### 1. Importing
 
 ```javascript
-import flattenText, { IFlattenText } from '@codexcentral/flatten-texts';
+import { flattenText, IFlattenText } from '@codexcentral/flatten-texts';
 ```
 
 ### 2. Call the functions
