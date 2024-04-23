@@ -1,7 +1,7 @@
 {
-  "name": "@codexcentral/<name_of_package>",
-  "version": "1.0.0",
-  "description": "Function to allow....",
+  "name": "@codexcentral/flatten-texts",
+  "version": "1.2.0",
+  "description": "Function to allows you to flatten an array of texts into a single array of texts.",
   "license": "Apache-2.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -15,14 +15,14 @@
   "author": "Roberto Silva Zuñiga <c.roberto.u@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Codex-Central/<name_of_package>.git"
+    "url": "git+https://github.com/Codex-Central/flatten-texts.git"
   },
   "bugs": {
-    "url": "https://github.com/Codex-Central/<name_of_package>/issues"
+    "url": "https://github.com/Codex-Central/flatten-texts/issues"
   },
-  "homepage": "https://github.com/Codex-Central/<name_of_package>#readme",
+  "homepage": "https://github.com/Codex-Central/flatten-texts#readme",
   "scripts": {
-    "build": "rm -rf dist/ && yarn build:esm && yarn build:cjs",
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc --outDir dist/esm --module esnext",
     "build:cjs": "tsc --outDir dist/cjs --module commonjs"
   },
