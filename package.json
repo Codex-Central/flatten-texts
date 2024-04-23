@@ -1,0 +1,40 @@
+{
+  "name": "@codexcentral/<name_of_package>",
+  "version": "1.0.0",
+  "description": "Function to allow....",
+  "license": "Apache-2.0",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": ["typescript"],
+  "author": "Roberto Silva Zuñiga <c.roberto.u@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codex-Central/<name_of_package>.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Codex-Central/<name_of_package>/issues"
+  },
+  "homepage": "https://github.com/Codex-Central/<name_of_package>#readme",
+  "scripts": {
+    "build": "rm -rf dist/ && yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc --outDir dist/esm --module esnext",
+    "build:cjs": "tsc --outDir dist/cjs --module commonjs"
+  },
+  "devEngines": {
+    "node": ">=18.x",
+    "npm": ">=9.x"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}
