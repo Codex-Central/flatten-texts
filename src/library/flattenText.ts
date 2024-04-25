@@ -1,4 +1,10 @@
-import { IFlattenText, IFlattenTexts } from "../types/index.types";
+import { isJsonString, splitMessage } from "../helper/index.helper";
+import {
+  IFlattenText,
+  IFlattenTexts,
+  IMessage,
+  IMessageResponse,
+} from "../types/index.types";
 
 /**
  * This function receives a string and returns an array of objects with the text property.
@@ -13,11 +19,13 @@ import { IFlattenText, IFlattenTexts } from "../types/index.types";
  * const messages = flattenText<CustomMessage>(messageResponse);
  * console.log(messages);
  *
- * // Output:
- * // [
- * //   { text: { id: 1, text: "Hola" } },
- * //   { text: { id: 2, text: "Mundo" } }
- * // ]
+ * @result
+ * ```json
+ * [
+ *    { text: { id: 1, text: "Hola" } },
+ *    { text: { id: 2, text: "Mundo" } }
+ * ]
+ * ```
  *
  * @example
  * const messageResponse: IFlattenText<string> = {
@@ -27,12 +35,16 @@ import { IFlattenText, IFlattenTexts } from "../types/index.types";
  * const messages = flattenText<string>(messageResponse);
  * console.log(messages);
  *
- * // Output:
- * // [
- * //   { text: "Hello World" }
- * // ]
+ * @result
+ * ```json
+ * [
+ *    { text: "Hello World" }
+ * ]
+ * ```
  */
-function flattenText<T>({ content }: IFlattenText<T>): IFlattenTexts<T>[] {
+export const flattenText = <T>({
+  content,
+}: IFlattenText<T>): IFlattenTexts<T>[] => {
   // Check if the content is a JSON string
   if (isJsonString(content)) {
     const parsedContent: T[] = JSON.parse(content);
@@ -45,19 +57,45 @@ function flattenText<T>({ content }: IFlattenText<T>): IFlattenTexts<T>[] {
   return splitContent.map((item) => ({
     text: item as unknown as T,
   }));
-}
-
-const isJsonString = (str: string): boolean => {
-  try {
-    JSON.parse(str);
-    return true;
-  } catch (e) {
-    return false;
-  }
 };
 
-const splitMessage = (message: string): string[] => {
-  return message.split("\n\n");
-};
+/**
+ * This function receives an array of messages and returns an array of messages with the who property.
+ * Also, splits the message content by double line breaks.
+ *
+ * @result
+ * ```json
+ * [
+ *  { id: "1", message: "Hello", who: "me", type: "history", printed: true },
+ *  { id: "2", message: "World", who: "bot", type: "history", printed: true }
+ * ]
+ * ```
+ */
+export const flattenMessages = (messages: IMessageResponse[]): IMessage[] => {
+  return messages.flatMap((message) => {
+    const idBase = message.message_id ? message.message_id : Date.now();
+    const who = message.role === "user" ? "me" : "bot";
 
-export default flattenText;
+    const content = message.content;
+    if (isJsonString(content)) {
+      const parsedContent = JSON.parse(content);
+      return parsedContent.map((item: string, subIndex: number) => ({
+        id: idBase + subIndex.toString(),
+        message: item,
+        who,
+        type: "history",
+        printed: true,
+      }));
+    }
+
+    // Splitting the message content by double newlines if it is not JSON
+    const splitContent = splitMessage(content);
+    return splitContent.map((item, subIndex) => ({
+      id: `${idBase}-${subIndex}`,
+      message: item,
+      who,
+      type: "history",
+      printed: true,
+    }));
+  });
+};
