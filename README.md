@@ -1,5 +1,5 @@
 # flatten-texts
-Allows you to flatten an array of texts into a single array of texts.
+Function to allows you to flatten an array of texts into a single array of texts and by double break lines.
 
 
 ## Installation
@@ -45,6 +45,23 @@ const messageResponse = {
 };
 const messages = flattenText(messageResponse);
 console.log(messages); 
+
+// Output
+/*
+[
+  { text: 'Estoy aquí para ayudarte.' },
+  { text: '¿Puedo hacer algo por ti?' }
+]
+*/
+```
+
+#### Example 3
+```javascript
+const messageResponse = {
+  content: "Estoy aquí para ayudarte.\n\n¿Puedo hacer algo por ti?"
+};
+const messages = flattenText(messageResponse);
+console.log(messages);
 
 // Output
 /*

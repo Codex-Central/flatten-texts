@@ -2,6 +2,7 @@ import { IFlattenText, IFlattenTexts } from "../types/index.types";
 
 /**
  * This function receives a string and returns an array of objects with the text property.
+ * Also, splits the string by double line breaks.
  * @param content
  *
  * @example
@@ -32,6 +33,7 @@ import { IFlattenText, IFlattenTexts } from "../types/index.types";
  * // ]
  */
 function flattenText<T>({ content }: IFlattenText<T>): IFlattenTexts<T>[] {
+  // Check if the content is a JSON string
   if (isJsonString(content)) {
     const parsedContent: T[] = JSON.parse(content);
     return parsedContent.map((item) => ({
@@ -39,11 +41,10 @@ function flattenText<T>({ content }: IFlattenText<T>): IFlattenTexts<T>[] {
     }));
   }
 
-  return [
-    {
-      text: content as unknown as T,
-    },
-  ];
+  const splitContent = splitMessage(content);
+  return splitContent.map((item) => ({
+    text: item as unknown as T,
+  }));
 }
 
 const isJsonString = (str: string): boolean => {
@@ -53,6 +54,10 @@ const isJsonString = (str: string): boolean => {
   } catch (e) {
     return false;
   }
+};
+
+const splitMessage = (message: string): string[] => {
+  return message.split("\n\n");
 };
 
 export default flattenText;
