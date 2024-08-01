@@ -22,8 +22,8 @@ import {
  * @result
  * ```json
  * [
- *    { text: { id: 1, text: "Hola" } },
- *    { text: { id: 2, text: "Mundo" } }
+ *    { "text": { id: 1, "text": "Hola" } },
+ *    { "text": { id: 2, "text": "Mundo" } }
  * ]
  * ```
  *
@@ -38,7 +38,7 @@ import {
  * @result
  * ```json
  * [
- *    { text: "Hello World" }
+ *    { "text": "Hello World" }
  * ]
  * ```
  */
@@ -66,8 +66,8 @@ export const flattenText = <T>({
  * @result
  * ```json
  * [
- *  { id: "1", message: "Hello", who: "me", type: "history", printed: true },
- *  { id: "2", message: "World", who: "bot", type: "history", printed: true }
+ *  { "id": "1", "message": "Hello", "who": "me", "type": "history", "printed": true },
+ *  { "id": "2", "message": "World", "who": "bot", "type": "history", "printed": true }
  * ]
  * ```
  */

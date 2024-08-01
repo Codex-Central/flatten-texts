@@ -14,7 +14,7 @@ export interface IMessageResponse {
 }
 
 export interface IMessage {
-  id: number;
+  id: string;
   message: string;
   who: "bot" | "me";
   type: any;
