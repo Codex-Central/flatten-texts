@@ -13,7 +13,7 @@ import {
  *
  * @example
  * const messageResponse: IFlattenText<CustomMessage[]> = {
- *  content: '[{"id": 1, "text": "Hola"}, {"id": 2, "text": "Mundo"}]',
+ *  content: '[{"id": "1", "text": "Hola"}, {"id": "2", "text": "Mundo"}]',
  * };
  *
  * const messages = flattenText<CustomMessage>(messageResponse);
@@ -22,8 +22,8 @@ import {
  * @result
  * ```json
  * [
- *    { "text": { id: 1, "text": "Hola" } },
- *    { "text": { id: 2, "text": "Mundo" } }
+ *    { "text": { id: "1", "text": "Hola" } },
+ *    { "text": { id: "2", "text": "Mundo" } }
  * ]
  * ```
  *
